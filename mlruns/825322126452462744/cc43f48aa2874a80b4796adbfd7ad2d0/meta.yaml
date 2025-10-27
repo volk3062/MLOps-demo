@@ -1,0 +1,14 @@
+artifact_uri: file:///media/himashakti/Work1/MLOps/mlops-demo/mlruns/825322126452462744/cc43f48aa2874a80b4796adbfd7ad2d0/artifacts
+end_time: 1761286359112
+entry_point_name: ''
+experiment_id: '825322126452462744'
+lifecycle_stage: active
+run_id: cc43f48aa2874a80b4796adbfd7ad2d0
+run_name: fortunate-snail-212
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1761286356023
+status: 4
+tags: []
+user_id: himashakti

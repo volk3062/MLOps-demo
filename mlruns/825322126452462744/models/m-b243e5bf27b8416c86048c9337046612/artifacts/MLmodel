@@ -1,0 +1,22 @@
+artifact_path: file:///media/himashakti/Work1/MLOps/mlops-demo/mlruns/825322126452462744/models/m-b243e5bf27b8416c86048c9337046612/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.10.12
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.7.2
+mlflow_version: 3.5.1
+model_id: m-b243e5bf27b8416c86048c9337046612
+model_size_bytes: 2859876
+model_uuid: m-b243e5bf27b8416c86048c9337046612
+prompts: null
+run_id: b06332f98989450cb9eabc9c16ae2d0f
+utc_time_created: '2025-10-23 08:01:02.581166'

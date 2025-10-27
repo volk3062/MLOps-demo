@@ -1,0 +1,14 @@
+artifact_uri: file:///media/himashakti/Work1/MLOps/mlops-demo/mlruns/825322126452462744/bb71357179814736bb25459664018c9b/artifacts
+end_time: 1761204253503
+entry_point_name: ''
+experiment_id: '825322126452462744'
+lifecycle_stage: active
+run_id: bb71357179814736bb25459664018c9b
+run_name: bright-croc-401
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1761204249885
+status: 3
+tags: []
+user_id: himashakti

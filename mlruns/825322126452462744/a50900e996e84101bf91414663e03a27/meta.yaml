@@ -1,0 +1,14 @@
+artifact_uri: file:///media/himashakti/Work1/MLOps/mlops-demo/mlruns/825322126452462744/a50900e996e84101bf91414663e03a27/artifacts
+end_time: 1761205660968
+entry_point_name: ''
+experiment_id: '825322126452462744'
+lifecycle_stage: active
+run_id: a50900e996e84101bf91414663e03a27
+run_name: stately-hawk-200
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1761205657306
+status: 3
+tags: []
+user_id: himashakti

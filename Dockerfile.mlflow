@@ -1,0 +1,20 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+RUN pip install --no-cache-dir mlflow==3.5.1 sqlalchemy==2.0.25 gunicorn
+
+RUN mkdir -p /app/mlruns /app/artifacts
+
+EXPOSE 5000
+
+ENV BACKEND_URI=sqlite:///mlflow.db
+ENV ARTIFACT_ROOT=/app/mlruns
+ENV HOST=0.0.0.0
+ENV PORT=5000
+
+CMD mlflow server \
+    --backend-store-uri ${BACKEND_URI} \
+    --default-artifact-root ${ARTIFACT_ROOT} \
+    --host ${HOST} \
+    --port ${PORT}

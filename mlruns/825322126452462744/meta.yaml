@@ -1,0 +1,6 @@
+artifact_location: file:///media/himashakti/Work1/MLOps/mlops-demo/mlruns/825322126452462744
+creation_time: 1761204249828
+experiment_id: '825322126452462744'
+last_update_time: 1761204249828
+lifecycle_stage: active
+name: Customer_Churn_Experiment

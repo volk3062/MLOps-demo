@@ -1,0 +1,10 @@
+artifact_location: file:///media/himashakti/Work1/MLOps/mlops-demo/mlruns/825322126452462744/models/m-0374244801b5414c9e1bd13e1a33bfe7/artifacts
+creation_timestamp: 1761205657632
+experiment_id: '825322126452462744'
+last_updated_timestamp: 1761205660938
+model_id: m-0374244801b5414c9e1bd13e1a33bfe7
+model_type: null
+name: model
+source_run_id: a50900e996e84101bf91414663e03a27
+status: 2
+status_message: null

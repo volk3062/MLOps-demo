@@ -1,0 +1,25 @@
+mlflow ui \
+  --backend-store-uri sqlite:////home/himashakti/Documents/Shrushanth/MLOps/mlflow.db \
+  --default-artifact-root /home/himashakti/Documents/Shrushanth/MLOps/mlruns
+
+
+
+  "gender": 1,
+  "SeniorCitizen": 0,
+  "Partner": 1,
+  "Dependents": 0,
+  "tenure": 12,
+  "PhoneService": 1,
+  "MultipleLines": 0,
+  "InternetService": 2,
+  "OnlineSecurity": 0,
+  "OnlineBackup": 1,
+  "DeviceProtection": 0,
+  "TechSupport": 0,
+  "StreamingTV": 1,
+  "StreamingMovies": 0,
+  "Contract": 1,
+  "PaperlessBilling": 1,
+  "PaymentMethod": 2,
+  "MonthlyCharges": 70.5,
+  "TotalCharges": 845.5

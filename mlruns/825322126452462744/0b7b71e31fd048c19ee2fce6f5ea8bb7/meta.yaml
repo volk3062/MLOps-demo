@@ -1,0 +1,14 @@
+artifact_uri: file:///media/himashakti/Work1/MLOps/mlops-demo/mlruns/825322126452462744/0b7b71e31fd048c19ee2fce6f5ea8bb7/artifacts
+end_time: 1761206014315
+entry_point_name: ''
+experiment_id: '825322126452462744'
+lifecycle_stage: active
+run_id: 0b7b71e31fd048c19ee2fce6f5ea8bb7
+run_name: amusing-colt-307
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1761206010654
+status: 3
+tags: []
+user_id: himashakti

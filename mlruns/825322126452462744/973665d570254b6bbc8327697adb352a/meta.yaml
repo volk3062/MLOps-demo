@@ -1,0 +1,14 @@
+artifact_uri: file:///media/himashakti/Work1/MLOps/mlops-demo/mlruns/825322126452462744/973665d570254b6bbc8327697adb352a/artifacts
+end_time: 1761286799615
+entry_point_name: ''
+experiment_id: '825322126452462744'
+lifecycle_stage: active
+run_id: 973665d570254b6bbc8327697adb352a
+run_name: legendary-tern-875
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1761286796923
+status: 4
+tags: []
+user_id: himashakti

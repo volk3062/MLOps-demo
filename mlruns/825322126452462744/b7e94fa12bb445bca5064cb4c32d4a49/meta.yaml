@@ -1,0 +1,14 @@
+artifact_uri: file:///media/himashakti/Work1/MLOps/mlops-demo/mlruns/825322126452462744/b7e94fa12bb445bca5064cb4c32d4a49/artifacts
+end_time: 1761205484387
+entry_point_name: ''
+experiment_id: '825322126452462744'
+lifecycle_stage: active
+run_id: b7e94fa12bb445bca5064cb4c32d4a49
+run_name: righteous-moose-574
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1761205480810
+status: 3
+tags: []
+user_id: himashakti

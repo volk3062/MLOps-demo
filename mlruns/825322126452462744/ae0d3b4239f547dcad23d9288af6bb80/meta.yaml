@@ -1,0 +1,14 @@
+artifact_uri: file:///media/himashakti/Work1/MLOps/mlops-demo/mlruns/825322126452462744/ae0d3b4239f547dcad23d9288af6bb80/artifacts
+end_time: 1761286403787
+entry_point_name: ''
+experiment_id: '825322126452462744'
+lifecycle_stage: active
+run_id: ae0d3b4239f547dcad23d9288af6bb80
+run_name: calm-jay-889
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1761286401197
+status: 4
+tags: []
+user_id: himashakti

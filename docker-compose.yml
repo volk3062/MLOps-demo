@@ -1,0 +1,54 @@
+services:
+  mlflow-server:
+    image: mlflow-server:latest
+    container_name: mlflow-server
+    build:
+      context: .
+      dockerfile: Dockerfile.mlflow
+    ports:
+      - "5000:5000"
+    volumes:
+      # Your absolute paths are perfectly fine.
+      - /home/himashakti/Documents/Shrushanth/MLOps/MLOps-demo/Docker/mlruns:/app/mlruns
+      - /home/himashakti/Documents/Shrushanth/MLOps/MLOps-demo/Docker/mlflow.db:/app/mlflow.db
+    # NOTE: The FORWARDED_ALLOW_IPS environment variable is removed as it's not needed.
+    # This command now includes the --allowed-hosts flag as required by the MLflow security middleware.
+    # command: >
+    #   mlflow server
+    #   --backend-store-uri sqlite:////app/mlflow.db
+    #   --default-artifact-root /app/mlruns
+    #   --host 0.0.0.0
+    #   --port 5000
+    #   --allowed-hosts "*"
+    command: >
+      mlflow server
+      --backend-store-uri sqlite:////app/mlflow.db
+      --artifacts-destination /app/mlruns
+      --serve-artifacts
+      --host 0.0.0.0
+      --port 5000
+      --allowed-hosts "*"
+
+  demo-service:
+    image: mlops-demo:latest
+    container_name: MLOps
+    build:
+      context: .
+      dockerfile: Dockerfile.demo
+    depends_on:
+      - mlflow-server
+    environment:
+      - MLFLOW_TRACKING_URI=http://mlflow-server:5000
+    ports:
+      - "8060:8060"
+
+  train:
+    image: mlops-train:latest
+    container_name: Train
+    build:
+      context: .
+      dockerfile: Dockerfile.train
+    depends_on:
+      - mlflow-server
+    environment:
+      - MLFLOW_TRACKING_URI=http://mlflow-server:5000
