@@ -1,5 +1,6 @@
 from fastapi import FastAPI
-from pydantic import BaseModel, create_model, Field
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import create_model, Field
 import mlflow.sklearn
 import numpy as np
 import json
@@ -7,6 +8,14 @@ import uvicorn
 import os
 
 app = FastAPI(title="Customer Churn Prediction API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI"))
 # mlflow.set_tracking_uri("http://localhost:5000")
