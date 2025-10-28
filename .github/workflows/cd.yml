@@ -22,43 +22,116 @@ jobs:
 
       - name: Build and push Docker images
         run: |
-          # Use the repository owner's username (all lowercase) for the image name
           OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
-          
-          # Build, tag, and push the training image
           docker build -t ghcr.io/$OWNER/mlops-train:latest -f Dockerfile.train .
           docker push ghcr.io/$OWNER/mlops-train:latest
-
-          # Build, tag, and push the demo service image
           docker build -t ghcr.io/$OWNER/mlops-demo:latest -f Dockerfile.demo .
           docker push ghcr.io/$OWNER/mlops-demo:latest
 
+      # === NEW STEP ADDED HERE ===
+      - name: Connect to Tailscale VPN
+        uses: tailscale/github-action@v2
+        with:
+          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+
+      # === SSH STEP MODIFIED TO USE TAILSCALE IP ===
       - name: Deploy to Server via SSH
         uses: appleboy/ssh-action@master
         with:
+          # This now uses the private Tailscale IP via the updated secret
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            # Navigate to the project directory on the server
+            # These commands are now sent over the secure VPN tunnel
             cd /media/himashakti/Work/MLOps/mlops-demo
-
-            # Login to GitHub Container Registry on the server
             echo ${{ secrets.DOCKER_PASSWORD }} | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
-            
-            # Update docker-compose.yml to use the new image paths
-            # This makes the setup portable and independent of your local Docker build names
             sed -i "s|image: mlops-train:latest|image: ghcr.io/$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')/mlops-train:latest|g" docker-compose.yml
             sed -i "s|image: mlops-demo:latest|image: ghcr.io/$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')/mlops-demo:latest|g" docker-compose.yml
-            
-            # Pull the new images from the registry
             docker-compose pull train demo-service
-            
-            # Retrain the model with the new code/data
             docker-compose up train
-
-            # Restart the demo service with the new image
             docker-compose up -d --force-recreate demo-service
-            
-            # Clean up old, unused Docker images to save space
             docker image prune -f
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# name: CD - Build, Push, and Deploy
+
+# # This workflow runs only on pushes to the main branch
+# on:
+#   push:
+#     branches:
+#       - 'main'
+
+# jobs:
+#   build-push-deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+
+#       - name: Login to GitHub Container Registry
+#         uses: docker/login-action@v3
+#         with:
+#           registry: ghcr.io
+#           username: ${{ github.repository_owner }}
+#           password: ${{ secrets.DOCKER_PASSWORD }}
+
+#       - name: Build and push Docker images
+#         run: |
+#           # Use the repository owner's username (all lowercase) for the image name
+#           OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          
+#           # Build, tag, and push the training image
+#           docker build -t ghcr.io/$OWNER/mlops-train:latest -f Dockerfile.train .
+#           docker push ghcr.io/$OWNER/mlops-train:latest
+
+#           # Build, tag, and push the demo service image
+#           docker build -t ghcr.io/$OWNER/mlops-demo:latest -f Dockerfile.demo .
+#           docker push ghcr.io/$OWNER/mlops-demo:latest
+
+#       - name: Deploy to Server via SSH
+#         uses: appleboy/ssh-action@master
+#         with:
+#           host: ${{ secrets.SSH_HOST }}
+#           username: ${{ secrets.SSH_USERNAME }}
+#           key: ${{ secrets.SSH_KEY }}
+#           script: |
+#             # Navigate to the project directory on the server
+#             cd /media/himashakti/Work/MLOps/mlops-demo
+
+#             # Login to GitHub Container Registry on the server
+#             echo ${{ secrets.DOCKER_PASSWORD }} | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
+            
+#             # Update docker-compose.yml to use the new image paths
+#             # This makes the setup portable and independent of your local Docker build names
+#             sed -i "s|image: mlops-train:latest|image: ghcr.io/$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')/mlops-train:latest|g" docker-compose.yml
+#             sed -i "s|image: mlops-demo:latest|image: ghcr.io/$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')/mlops-demo:latest|g" docker-compose.yml
+            
+#             # Pull the new images from the registry
+#             docker-compose pull train demo-service
+            
+#             # Retrain the model with the new code/data
+#             docker-compose up train
+
+#             # Restart the demo service with the new image
+#             docker-compose up -d --force-recreate demo-service
+            
+#             # Clean up old, unused Docker images to save space
+#             docker image prune -f
