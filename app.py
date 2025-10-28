@@ -28,8 +28,11 @@ with open("models/feature_metadata.json", "r") as f:
     feature_names = json.load(f)
 
 # Dynamically create Pydantic model
-fields = {name: (float, Field(...)) for name in feature_names}  # Field(...) makes it required
+fields = {
+    name: (float, Field(...)) for name in feature_names
+}  # Field(...) makes it required
 CustomerFeatures = create_model("CustomerFeatures", **fields)
+
 
 @app.post("/predict")
 def predict(customer: CustomerFeatures):
@@ -37,6 +40,7 @@ def predict(customer: CustomerFeatures):
     X = np.array(features).reshape(1, -1)
     prediction = model.predict(X)
     return {"churn": bool(prediction[0])}
+
 
 if __name__ == "__main__":
     uvicorn.run("app:app", host="127.0.0.1", port=8060, reload=True)
