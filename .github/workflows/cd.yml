@@ -45,13 +45,15 @@ jobs:
           script: |
             # These commands are now sent over the secure VPN tunnel
             cd /media/himashakti/Work/MLOps/mlops-demo
-            echo ${{ secrets.DOCKER_PASSWORD }} | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
+            echo ${{ secrets.DOCKER_PASSWORD }} |sudo docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
             sed -i "s|image: mlops-train:latest|image: ghcr.io/$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')/mlops-train:latest|g" docker-compose.yml
             sed -i "s|image: mlops-demo:latest|image: ghcr.io/$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')/mlops-demo:latest|g" docker-compose.yml
-            docker-compose pull train demo-service
-            docker-compose up train
-            docker-compose up -d --force-recreate demo-service
-            docker image prune -f
+            
+            sudo docker-compose pull train demo-service
+            sudo docker-compose up train
+            sudo docker-compose up -d --force-recreate demo-service
+            
+            sudo docker image prune -f
 
 
 
