@@ -9,15 +9,15 @@ on:
     branches-ignore:
       - 'main'
 
+permissions:
+  contents: write
+
 jobs:
   auto-process-data:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        # We need a token to push back to the repository
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v5

@@ -27,7 +27,7 @@ if "customerID" in df.columns:
 
 # Convert all object columns to numeric categories
 for col in df.select_dtypes(include=["object"]).columns:
-    df[col] = df[col].astype('category').cat.codes
+    df[col] = df[col].astype("category").cat.codes
 
 # Remove any duplicate rows that might result from combining files
 df.drop_duplicates(inplace=True)
@@ -39,8 +39,6 @@ os.makedirs(os.path.dirname(PROCESSED_DATA_FILE), exist_ok=True)
 df.to_csv(PROCESSED_DATA_FILE, index=False)
 
 print(f"✅ Data processing complete. Cleaned data saved to {PROCESSED_DATA_FILE}.")
-
-
 
 
 # import pandas as pd
