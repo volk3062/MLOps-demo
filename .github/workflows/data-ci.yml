@@ -1,0 +1,48 @@
+name: CI - Automate Data Preprocessing
+
+on:
+  push:
+    # Trigger ONLY on changes to raw data or the script itself
+    paths:
+      - 'data/raw/**.csv'
+      - 'src/data_preprocess.py'
+    branches-ignore:
+      - 'main'
+
+jobs:
+  auto-process-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        # We need a token to push back to the repository
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run data processing script
+        run: python src/data_preprocess.py
+
+      - name: Commit and push changes
+        run: |
+          # Configure Git with a user name and email for the commit
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+
+          # Check if git status has any changes. The --porcelain flag makes the output
+          # clean and easy for a script to check.
+          if [[ -n $(git status --porcelain) ]]; then
+            echo "Detected changes in processed data. Committing and pushing..."
+            git add data/processed/cleaned.csv
+            git commit -m "Automated: Regenerate cleaned.csv from raw data"
+            git push
+          else
+            echo "No changes to processed data. Nothing to commit."
+          fi
